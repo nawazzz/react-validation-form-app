@@ -88,7 +88,14 @@ class ReactForm extends Component {
 
     handleButton = (event) => {
         console.log(event)
-
+        if (!this.state.inputAgeValue.length && !this.state.inputEmailValue.length && !this.state.inputNameValue.length && !this.state.inputPhoneValue.length) {
+            this.setState({
+                emailErrorMessage: 'Please enter the required details.',
+                phoneErrorMessage: 'Please enter the required details.',
+                nameErrorMessage: 'Please enter the required details.',
+                ageErrorMessage: 'Please enter the required details.',
+            })
+        }
     }
 
   render() {
@@ -161,7 +168,7 @@ class ReactForm extends Component {
                     />
                 </Routes>
                 <div style={{textAlign: 'center'}}>
-                    <Link to={(!this.state.ageErrorMessage && !this.state.emailErrorMessage && !this.state.nameErrorMessage && !this.state.phoneErrorMessage) ? '/user-details' : '/form'}  
+                    <Link to={(this.state.inputAgeValue && this.state.inputEmailValue && this.state.inputNameValue && this.state.inputPhoneValue) ? '/user-details' : ''}  
                         className='button'
                         onClick={this.handleButton}
                     >Submit</Link>

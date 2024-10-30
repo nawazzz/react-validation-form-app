@@ -11,7 +11,7 @@ class App extends React.Component {
         <Routes>
           <Route
             exact 
-            path='/form'
+            path='/'
             Component={() => <ReactForm />}
           />
         </Routes>
