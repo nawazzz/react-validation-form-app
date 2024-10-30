@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import './App.scss';
+import ReactForm from './ReactForm';
+import { Switch, Route, Routes, useParams } from 'react-router-dom';
+import UserDetails from './UserDetails';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return(
+      <div>
+        <Routes>
+          <Route
+            exact 
+            path='/form'
+            Component={() => <ReactForm />}
+          />
+        </Routes>
+        {/* <ReactForm /> */}
+        <Routes>
+          <Route
+            exact 
+            path='/user-details'
+            Component={() => <UserDetails inputEmailValue={this.props.inputEmailValue} />}
+          />
+        </Routes>
+      </div>
+    )
+  }
 }
 
 export default App;
