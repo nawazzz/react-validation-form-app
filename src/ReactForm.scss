@@ -1,6 +1,13 @@
 .inputField {
     max-width: 50%;
     flex: 0 0 20%;
+    h5 {
+        &::after {
+            color: #E60000;
+            content: '*';
+            margin-left: .125rem;
+        }
+    }
     input {
         transition: all .15s ease-in-out;
         background: #fff;

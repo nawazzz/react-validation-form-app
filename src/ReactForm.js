@@ -43,6 +43,14 @@ class ReactForm extends Component {
                 currentErrorMessage = 'Please enter a phone number'
                 this.setState({phoneErrorMessage: currentErrorMessage}, () => {console.log(this.state)})
             }
+            if ((this.state.inputPhoneValue.length > 0) && (this.state.inputPhoneValue.length < 10)) {
+                currentErrorMessage = 'Phone number is too short'
+                this.setState({phoneErrorMessage: currentErrorMessage}, () => {console.log(this.state)})
+            }
+            if (!([...this.state.inputPhoneValue].every(c => '0123456789+'.includes(c))) || (this.state.inputPhoneValue.length > 13)) {
+                currentErrorMessage = 'Phone number is invalid, please enter a valid phone number'
+                this.setState({phoneErrorMessage: currentErrorMessage}, () => {console.log(this.state)})
+            }
         }
         if (event.target.name === 'email') {
             if (this.state.inputEmailValue.length === 0) {
@@ -51,6 +59,10 @@ class ReactForm extends Component {
             }
             if (this.state.inputEmailValue.length && !this.state.inputEmailValue.includes('@')) {
                 currentErrorMessage = `Please include an '@' in the email address. ${this.state.inputEmailValue} is missing an '@'.`
+                this.setState({emailErrorMessage: currentErrorMessage}, () => {console.log(this.state)})
+            }
+            if (this.state.inputEmailValue.length && this.state.inputEmailValue.includes('@') && (!this.state.inputEmailValue.includes('.com') || !this.state.inputEmailValue.includes('.co.in'))) {
+                currentErrorMessage = `Please enter a part following '@'. ${this.state.inputEmailValue} is incomplete`
                 this.setState({emailErrorMessage: currentErrorMessage}, () => {console.log(this.state)})
             }
         }
@@ -106,12 +118,13 @@ class ReactForm extends Component {
                 <h1 style={{textAlign: 'center'}}>React validation form</h1>
                 <div className='form'>
                     <div className='inputField'>
+                        <h5>Email address</h5>
                         <input name='email' 
                             type='text' 
                             placeholder='Email'
                             value={this.state.inputEmailValue}
                             onChange={this.handleInput}
-                            maxlength="10"
+                            maxlength="50"
                             onBlur={this.handleFocusOutInput}
                             onFocus={this.handleFocusInInput}
                         />
@@ -120,12 +133,13 @@ class ReactForm extends Component {
                         </p>
                     </div>
                     <div className='inputField'>
+                        <h5>Phone number</h5>
                         <input name='phone' 
                             type='text' 
                             placeholder='Phone'
                             value={this.state.inputPhoneValue}
                             onChange={this.handleInput}
-                            maxlength="13"
+                            maxlength="20"
                             onBlur={this.handleFocusOutInput}
                             onFocus={this.handleFocusInInput}
                         />
@@ -134,6 +148,7 @@ class ReactForm extends Component {
                 </div>
                 <div className='form'>
                     <div className='inputField'>
+                        <h5>Name</h5>
                         <input name='name' 
                             type='text' 
                             placeholder='name'
@@ -147,6 +162,7 @@ class ReactForm extends Component {
 
                     </div>
                     <div className='inputField'>
+                        <h5>Age</h5>
                         <input name='age' 
                             type='number' 
                             placeholder='age'
